@@ -16,15 +16,15 @@ locals {
   credential = merge(var.gcp_cred, {private_key = "${var.gcp_private_key}"})
 }
 
-variable "gke_username" {
-  default     = "deepti"
-  description = "gke username"
-}
+#variable "gke_username" {
+#  default     = "deepti"
+#  description = "gke username"
+#}
 
-variable "gke_password" {
-  default     = ""
-  description = "gke password"
-}
+#variable "gke_password" {
+#  default     = ""
+#  description = "gke password"
+#}
 
 variable "gke_num_nodes" {
   default     = 2
