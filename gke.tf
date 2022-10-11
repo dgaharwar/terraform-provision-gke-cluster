@@ -1,5 +1,28 @@
+provider "google" {
+  project = var.project
+  region  = var.region
+  credentials = jsonencode(local.credential)
+}
+ 
+variable "gcp_private_key" {
+  type = string
+}
+
+variable "gcp_cred" {
+  type = map
+}
+
+locals {
+  credential = merge(var.gcp_cred, {private_key = "${var.gcp_private_key}"})
+}
+
+variable "project_id" {
+  type = string
+  default = "silicon-coder-316218"
+}
+  
 variable "gke_username" {
-  default     = ""
+  default     = "deepti"
   description = "gke username"
 }
 
@@ -62,15 +85,13 @@ resource "google_container_node_pool" "primary_nodes" {
 # # https://learn.hashicorp.com/terraform/kubernetes/provision-gke-cluster#optional-configure-terraform-kubernetes-provider
 # # To learn how to schedule deployments and services using the provider, go here: https://learn.hashicorp.com/tutorials/terraform/kubernetes-provider.
 
-# provider "kubernetes" {
-#   load_config_file = "false"
-
-#   host     = google_container_cluster.primary.endpoint
-#   username = var.gke_username
-#   password = var.gke_password
-
+ provider "kubernetes" {
+   load_config_file = "false"
+   host     = google_container_cluster.primary.endpoint
+   username = var.gke_username
+   password = var.gke_password
 #   client_certificate     = google_container_cluster.primary.master_auth.0.client_certificate
 #   client_key             = google_container_cluster.primary.master_auth.0.client_key
-#   cluster_ca_certificate = google_container_cluster.primary.master_auth.0.cluster_ca_certificate
-# }
+   cluster_ca_certificate = google_container_cluster.primary.master_auth.0.cluster_ca_certificate
+ }
 
