@@ -16,11 +16,6 @@ locals {
   credential = merge(var.gcp_cred, {private_key = "${var.gcp_private_key}"})
 }
 
-variable "project_id" {
-  type = string
-  default = "silicon-coder-316218"
-}
-  
 variable "gke_username" {
   default     = "deepti"
   description = "gke username"
