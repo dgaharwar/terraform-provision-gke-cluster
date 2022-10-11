@@ -4,6 +4,21 @@ provider "google" {
   credentials = jsonencode(local.credential)
 }
  
+variable "project" {
+  type = string
+  default = "morpheusapp"
+}
+
+variable "region" {
+  type = string
+  default = "us-central1"
+}
+
+variable "project_id" {
+    type = string
+    default = "morpheusapp"
+}
+
 variable "gcp_private_key" {
   type = string
 }
@@ -89,4 +104,3 @@ resource "google_container_node_pool" "primary_nodes" {
 #   client_key             = google_container_cluster.primary.master_auth.0.client_key
 #   cluster_ca_certificate = google_container_cluster.primary.master_auth.0.cluster_ca_certificate
 # }
-
